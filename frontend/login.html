@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+    <link href="bootstrap.css" rel="stylesheet">
+    <title>Login</title>
+    <script src="helper.js"></script>
+</head>
+<body>
+  <div class="main">
+    <p class="sign" align="center">Reimbursement Portal Login</p>
+    <form class="form1">
+        <input type="text" class="un " align="center" placeholder="Username" id="username" autocomplete="off" required />
+        <input type="password" class="pass" align="center" placeholder="Password" id="password" required />
+        <a class="submit" type="submit" align="center" id="loginButton">Login</a>
+        <p class="error" align="center" id="afterLoginMessage"></p>
+    </form>
+  </div>
+    
+</body>
+
+<script>
+  checkEmployeeID = localStorage.getItem("employeeOrManager")
+  
+  if(checkEmployeeID != "null" && checkEmployeeID != undefined){
+    
+    if(checkEmployeeID == "Manager"){
+      redirectToManagerHome()
+    }
+
+    else if(checkEmployeeID == "Employee"){
+      redirectToEmployeeHome()
+    }
+  }
+
+  const loginButton = document.getElementById("loginButton")
+  const afterLoginMessage = document.getElementById("afterLoginMessage")
+
+  loginButton.addEventListener("click",function(e){
+    e.preventDefault();
+    login();
+  })
+  
+  async function login(){
+    
+    const username = document.getElementById("username");
+    const password = document.getElementById("password");
+    
+    const data = {
+      username: `${username.value}`,
+      password: `${password.value}`
+    }
+
+    try{
+      const response = await fetch("http://localhost:5000/login",{
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+          body: JSON.stringify(data)
+      })
+
+      const responseJSON = await response.json()
+      const result = await responseJSON
+    
+      if(result.responseMessage != "Login successful"){
+        throwError(result.responseMessage)
+      }
+
+      else{
+        afterLoginMessage.innerHTML = result.responseMessage
+        localStorage.setItem("employeeID", result.employeeID)
+
+        if(result.employeeOrManager == "Manager"){
+          localStorage.setItem("employeeOrManager", "Manager")
+          redirectToManagerHome()
+        }
+
+        else if(result.employeeOrManager == "Employee"){
+          localStorage.setItem("employeeOrManager", "Employee")
+          redirectToEmployeeHome()
+        }
+      }
+    }
+    catch(err){
+      throwError(err.message)
+    }
+  }
+
+  function throwError(error){
+    afterLoginMessage.innerHTML = error
+  }
+</script>
+</html>

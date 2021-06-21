@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Approve or Deny Reimbursement</title>
+    <script src="helper.js"></script>
+    <link href="bootstrap.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1 style="text-align:center">Manager Reimbursement Portal</h1>
+    <ul class="nav justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link" href="managerhome.html">Home Page</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="managerview.html">View All Reimbursements</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Approve or Deny Reimbursement</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="statistics.html">Statistics</a>
+          </li>
+      </ul>
+    <h3 style="text-align:center">Approve or Deny Reimbursement</h3>
+    
+    <div style="text-align: center">
+        <p>Reimbursement ID number</p>
+    
+        <input id="reimbursementID" type="number" style="width: 80px;" min="1" required />
+        
+        <br /><br />
+        <p>Which would you like to do?</p>
+        
+        <select name="approveOrDeny" id="approveOrDeny">
+            <option selected disabled value="choose">Choose an option</option>
+            <option value="approve">Approve</option>
+            <option value="deny">Deny</option>
+        </select>
+
+        <br /><br />
+        <p>Message</p>
+
+        <textarea id="message" cols="50" rows="5"></textarea>
+        </body>
+        <br /><br />
+        <button onclick="approveOrDeny()" id="submit">Submit</button>
+        <br /><br /><br />
+        <p id="messageAfterSubmit" style="text-align: center;"></p>
+    </div>
+
+    <br />
+    <div style="text-align: center;"><button id="logout" onclick="logout()">Log out</button></div>
+
+</body>
+<script>
+    managerPageOnly()
+
+    async function approveOrDeny(){
+        const reimbursementID = document.getElementById("reimbursementID")
+        const approveOrDeny = document.getElementById("approveOrDeny")
+        const message = document.getElementById("message")
+        const messageAfterSubmit = document.getElementById("messageAfterSubmit")
+
+        messageAfterSubmit.innerHTML = ""
+
+        if(reimbursementID.value === ""){
+            messageAfterSubmit.innerHTML = "Please enter a reimbursement ID before submitting"
+        }
+        else if(parseInt(reimbursementID.value) === NaN || reimbursementID.value % 1 !== 0.0){
+            messageAfterSubmit.innerHTML = "Reimbursement IDs must be whole numbers"
+        }
+        else if(approveOrDeny.value === "choose"){
+            messageAfterSubmit.innerHTML = "Please choose whether you want to approve or deny the remibursement before submitting"
+        }
+        else{
+            const data = {
+                message: `${message.value}`
+            }
+
+            const response = await fetch(`http://localhost:5000/reimbursements/${approveOrDeny.value}/${parseInt(reimbursementID.value)}`,{
+                method: "PATCH",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+
+            const reimbursement = await response.json()
+            
+            if(reimbursement.errorMessage === undefined){
+                successMessage = ""
+
+
+                if(approveOrDeny.value === "deny"){
+                    successMessage = "Reimbursement denied successfully"
+                }
+                else{
+                    successMessage = "Reimbursement approved successfully"
+                }
+
+                messageAfterSubmit.innerHTML = 
+                `<br />
+                ${successMessage}
+                <table class="table">
+                    <thead><th>Reimbursement ID</th><th>Employee ID</th><th>Amount</th><th>Description</th><th>Status</th><th>Message</th></thead>
+                    <tbody>
+                        <td>${reimbursement.reID}</td><td>${reimbursement.employeeID}</td><td>${currencyFormatter().format(reimbursement.amount)}</td><td>${reimbursement.description}</td><td>${reimbursement.status}</td><td>${reimbursement.message}</td>
+                    </tbody>
+                </table>`
+            }
+            else{
+                messageAfterSubmit.innerHTML = reimbursement.errorMessage;
+            }
+        }
+    }
+</script>
+</html>

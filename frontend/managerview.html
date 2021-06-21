@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>View All Reimbursements</title>
+    <script src="helper.js"></script>
+    <link href="bootstrap.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1 style="text-align:center">Manager Reimbursement Portal</h1>
+    <ul class="nav justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link active" href="managerhome.html">Home Page</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">View All Reimbursements</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="approvedeny.html">Approve or Deny Reimbursement</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="statistics.html">Statistics</a>
+          </li>
+      </ul>
+    <h3 style="text-align:center">View All Reimbursements</h3>
+    
+    <table class="table">
+        <thead id="thead"></thead>
+        <tbody id="reimbursements">
+            <!-- website data goes here -->
+        </tbody>
+    </table>
+    <p id="error"></p>
+    <div style="text-align: center;" >
+        <button id="logOut" onclick="logout()">Log out</button>
+    </div>
+    
+</body>
+<script>
+    managerPageOnly()
+
+    const reimbursementsHTML = document.getElementById("reimbursements")
+
+    async function loadAllReimbursements(){
+        const response = await fetch("http://localhost:5000/reimbursements")
+        const reimbursements = await response.json()
+        const thead = document.getElementById("thead");
+
+        if(reimbursements.length > 0){
+
+            thead.innerHTML = "<th>Reimbursement ID</th><th>Employee ID</th><th>Amount</th><th>Description</th><th>Status</th><th>Message</th>"
+
+            for(let i = 0; i < reimbursements.length; i++){
+                element = reimbursements[i]
+                
+                reimbursementsHTML.innerHTML += 
+                `<tr><td>${element.reID}</td><td>${element.employeeID}</td><td>${currencyFormatter().format(element.amount)}</td><td>${element.description}</td><td>${element.status}</td><td>${element.message}</td></tr>`;
+            }
+        }
+        else{
+            error.innerHTML = "No reimbursements found"
+        }
+    }
+
+    loadAllReimbursements()
+
+</script>
+</html>

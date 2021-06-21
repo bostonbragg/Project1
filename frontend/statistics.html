@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Statistics</title>
+    <script src="helper.js"></script>
+    <link href="bootstrap.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    
+</head>
+<body style="text-align: center;">
+    <h1 style="text-align:center">Manager Reimbursement Portal</h1>
+    <ul class="nav justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link" href="managerhome.html">Home Page</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="managerview.html">View All Reimbursements</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="approvedeny.html">Approve or Deny Reimbursement</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Statistics</a>
+          </li>
+      </ul>
+    <h3 style="text-align: center;">Statistics</h3>
+
+    <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" href="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Home</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="highest-employee-tab" data-bs-toggle="tab" data-bs-target="#highest-employee" type="button" role="tab" aria-controls="home" aria-selected="false">Highest Total Expenditure Costs for an Employee</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="highest-status-tab" data-bs-toggle="tab" data-bs-target="#highest-status" type="button" role="tab" aria-controls="profile" aria-selected="false">Highest Reimbursement by Status</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="mean-tab" data-bs-toggle="tab" data-bs-target="#mean" type="button" role="tab" aria-controls="contact" aria-selected="false">Mean Expenditure Cost by Status</button>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <br />
+            Welcome to the statistics page! Use the tabs to navigate between the different statistics that are available.
+        </div>
+        
+        <div class="tab-pane fade" id="highest-employee" role="tabpanel" aria-labelledby="highest-employee-tab">
+            <br />
+            <h4>Highest Total Expenditure Costs for an Employee</h4>
+            <br />
+            <table class="table">
+                <thead id="employees-thead"></thead>
+                <tbody id = "employees">
+                    <!-- website data goes here -->
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="tab-pane fade" id="highest-status" role="tabpanel" aria-labelledby="highest-status-tab">
+            <br />
+            <h4>Highest Reimbursement by Status</h4>
+            <br />
+            <select id="highest-status-select">
+                <option value="Overall">Overall</option>
+                <option value="Pending">Pending</option>
+                <option value="Approved">Approved</option>
+                <option value="Denied">Denied</option>
+            </select>
+            <button id="submit" onclick="getHighest()">Submit</button>
+            <br />
+            <table class="table">
+                <thead id="highest-thead"></thead>
+                <tbody id="reimbursementHTML">
+                    <!-- retrieved data goes here -->
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="tab-pane fade" id="mean" role="tabpanel" aria-labelledby="mean-tab">
+            <br />
+            <h4>Mean Expenditure Cost by Status</h4>
+            <br />
+            <select id="status">
+                <option value="Overall">Overall</option>
+                <option value="Pending">Pending</option>
+                <option value="Approved">Approved</option>
+                <option value="Denied">Denied</option>
+            </select>
+            <button id="submit" onclick="getMean()">Submit</button>
+            <br />
+            <table class="table">
+                <thead id="mean-thead"></thead>
+                <tbody id="amountHTML">
+                    <!-- retrieved data goes here -->
+                </tbody>
+            </table>
+        </div>
+      
+    </div>
+    
+    <br /><br /><br />
+    <div style="text-align: center;" >
+        <button id="logOut" onclick="logout()">Log out</button>
+    </div>
+
+
+
+
+    
+</body>
+<script>
+    managerPageOnly();
+
+    const highestEmployee = document.getElementById("highest-employee-tab")
+
+    highestEmployee.addEventListener("click",function(e){
+        e.preventDefault();
+        getEmployees();
+    })
+
+    async function getEmployees(){
+        const employeesHTML = document.getElementById("employees")
+        const thead = document.getElementById("employees-thead")
+
+        const response = await fetch('http://localhost:5000/statistics/employees/highest')
+        const employees = await response.json()
+        
+        employeesHTML.innerHTML = ""
+        thead.innerHTML = "<th>Employee ID</th><th>First Name</th><th>Last Name</th><th>Amount</th>"
+
+        for(let i = 0; i < employees.length; i++){
+            element = employees[i]
+            
+            employeesHTML.innerHTML += 
+            `<tr><td>${element.employeeID}</td><td>${element.firstName}</td><td>${element.lastName}</td><td>${currencyFormatter().format(element.amount)}</td></tr>`;
+        }
+    }
+
+    async function getHighest(){
+        const status = document.getElementById("highest-status-select")
+        const reimbursementHTML = document.getElementById("reimbursementHTML")
+        const thead = document.getElementById("highest-thead")
+
+        const response = await fetch(`http://localhost:5000/statistics/status/${status.value}/highest`)
+
+        const reimbursement = await response.json();
+        
+        reimbursementHTML.innerHTML = ""
+        thead.innerHTML = "<th>Reimbursement ID</th><th>Employee ID</th><th>Amount</th><th>Description</th><th>Status</th><th>Message</th>"
+
+        for(let i = 0; i < reimbursement.length; i++){
+            element = reimbursement[i];
+
+            reimbursementHTML.innerHTML += 
+            `<tr><td>${element.reID}</td><td>${element.employeeID}</td><td>${currencyFormatter().format(element.amount)}</td><td>${element.description}</td><td>${element.status}</td><td>${element.message}</td></tr>`;
+        }
+    }
+
+    async function getMean(){
+        const status = document.getElementById("status")
+        const amountHTML = document.getElementById("amountHTML")
+        const thead = document.getElementById("mean-thead")
+
+        const response = await fetch(`http://localhost:5000/statistics/status/${status.value}/mean`)
+        const returnValue = await response.json();
+        const amount = returnValue.amount;
+
+        thead.innerHTML = "<th>Amount</th>"
+        amountHTML.innerHTML = `<tr><td>${currencyFormatter().format(amount)}</td></tr>`
+    }
+</script>
+</html>

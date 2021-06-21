@@ -1,0 +1,53 @@
+Launching pytest with arguments C:/Users/bosto/Documents/GitHub/training/Project1/backend/tests --no-header --no-summary -q in C:\Users\bosto\Documents\GitHub\training\Project1\backend
+
+##teamcity[enteredTheMatrix timestamp='2021-06-21T09:46:58.666']
+============================= test session starts =============================
+collecting ... collected 12 items
+##teamcity[testCount timestamp='2021-06-21T09:47:02.082' count='12']
+
+tests/test_employee_dao.py::test_get_employee ##teamcity[testSuiteStarted timestamp='2021-06-21T09:47:02.084' locationHint='python<C:\Users\bosto\Documents\GitHub\training\Project1\backend>://tests' name='tests' nodeId='1' parentNodeId='0']
+##teamcity[testSuiteStarted timestamp='2021-06-21T09:47:02.084' locationHint='python<C:\Users\bosto\Documents\GitHub\training\Project1\backend>://tests.test_employee_dao' name='test_employee_dao' nodeId='2' parentNodeId='1']
+##teamcity[testStarted timestamp='2021-06-21T09:47:02.084' captureStandardOutput='false' locationHint='python<C:\Users\bosto\Documents\GitHub\training\Project1\backend>://tests.test_employee_dao.test_get_employee' metainfo='test_get_employee' name='test_get_employee' nodeId='3' parentNodeId='2']
+PASSED                     [  8%]##teamcity[testFinished timestamp='2021-06-21T09:47:02.204' duration='116' locationHint='python<C:\Users\bosto\Documents\GitHub\training\Project1\backend>://tests.test_employee_dao.test_get_employee' name='test_get_employee' nodeId='3' parentNodeId='2']
+
+tests/test_employee_dao.py::test_get_all_employees ##teamcity[testStarted timestamp='2021-06-21T09:47:02.204' captureStandardOutput='false' locationHint='python<C:\Users\bosto\Documents\GitHub\training\Project1\backend>://tests.test_employee_dao.test_get_all_employees' metainfo='test_get_all_employees' name='test_get_all_employees' nodeId='4' parentNodeId='2']
+PASSED                [ 16%]##teamcity[testFinished timestamp='2021-06-21T09:47:02.266' duration='61' locationHint='python<C:\Users\bosto\Documents\GitHub\training\Project1\backend>://tests.test_employee_dao.test_get_all_employees' name='test_get_all_employees' nodeId='4' parentNodeId='2']
+
+tests/test_login_dao.py::test_login ##teamcity[testSuiteFinished timestamp='2021-06-21T09:47:02.268' locationHint='python<C:\Users\bosto\Documents\GitHub\training\Project1\backend>://tests.test_employee_dao' name='test_employee_dao' nodeId='2' parentNodeId='1']
+##teamcity[testSuiteStarted timestamp='2021-06-21T09:47:02.268' locationHint='python<C:\Users\bosto\Documents\GitHub\training\Project1\backend>://tests.test_login_dao' name='test_login_dao' nodeId='5' parentNodeId='1']
+##teamcity[testStarted timestamp='2021-06-21T09:47:02.268' captureStandardOutput='false' locationHint='python<C:\Users\bosto\Documents\GitHub\training\Project1\backend>://tests.test_login_dao.test_login' metainfo='test_login' name='test_login' nodeId='6' parentNodeId='5']
+PASSED                               [ 25%]##teamcity[testFinished timestamp='2021-06-21T09:47:02.395' duration='125' locationHint='python<C:\Users\bosto\Documents\GitHub\training\Project1\backend>://tests.test_login_dao.test_login' name='test_login' nodeId='6' parentNodeId='5']
+
+tests/test_manager_dao.py::test_get_highest_total_for_an_employee ##teamcity[testSuiteFinished timestamp='2021-06-21T09:47:02.397' locationHint='python<C:\Users\bosto\Documents\GitHub\training\Project1\backend>://tests.test_login_dao' name='test_login_dao' nodeId='5' parentNodeId='1']
+##teamcity[testSuiteStarted timestamp='2021-06-21T09:47:02.397' locationHint='python<C:\Users\bosto\Documents\GitHub\training\Project1\backend>://tests.test_manager_dao' name='test_manager_dao' nodeId='7' parentNodeId='1']
+##teamcity[testStarted timestamp='2021-06-21T09:47:02.397' captureStandardOutput='false' locationHint='python<C:\Users\bosto\Documents\GitHub\training\Project1\backend>://tests.test_manager_dao.test_get_highest_total_for_an_employee' metainfo='test_get_highest_total_for_an_employee' name='test_get_highest_total_for_an_employee' nodeId='8' parentNodeId='7']
+PASSED [ 33%]##teamcity[testFinished timestamp='2021-06-21T09:47:02.848' duration='450' locationHint='python<C:\Users\bosto\Documents\GitHub\training\Project1\backend>://tests.test_manager_dao.test_get_highest_total_for_an_employee' name='test_get_highest_total_for_an_employee' nodeId='8' parentNodeId='7']
+
+tests/test_manager_dao.py::test_get_highest_by_status ##teamcity[testStarted timestamp='2021-06-21T09:47:02.849' captureStandardOutput='false' locationHint='python<C:\Users\bosto\Documents\GitHub\training\Project1\backend>://tests.test_manager_dao.test_get_highest_by_status' metainfo='test_get_highest_by_status' name='test_get_highest_by_status' nodeId='9' parentNodeId='7']
+PASSED             [ 41%]##teamcity[testFinished timestamp='2021-06-21T09:47:02.913' duration='63' locationHint='python<C:\Users\bosto\Documents\GitHub\training\Project1\backend>://tests.test_manager_dao.test_get_highest_by_status' name='test_get_highest_by_status' nodeId='9' parentNodeId='7']
+
+tests/test_manager_dao.py::test_get_mean_by_status ##teamcity[testStarted timestamp='2021-06-21T09:47:02.914' captureStandardOutput='false' locationHint='python<C:\Users\bosto\Documents\GitHub\training\Project1\backend>://tests.test_manager_dao.test_get_mean_by_status' metainfo='test_get_mean_by_status' name='test_get_mean_by_status' nodeId='10' parentNodeId='7']
+PASSED                [ 50%]##teamcity[testFinished timestamp='2021-06-21T09:47:03.342' duration='427' locationHint='python<C:\Users\bosto\Documents\GitHub\training\Project1\backend>://tests.test_manager_dao.test_get_mean_by_status' name='test_get_mean_by_status' nodeId='10' parentNodeId='7']
+
+tests/test_reimbursement_dao.py::test_create_reimbursement ##teamcity[testSuiteFinished timestamp='2021-06-21T09:47:03.344' locationHint='python<C:\Users\bosto\Documents\GitHub\training\Project1\backend>://tests.test_manager_dao' name='test_manager_dao' nodeId='7' parentNodeId='1']
+##teamcity[testSuiteStarted timestamp='2021-06-21T09:47:03.344' locationHint='python<C:\Users\bosto\Documents\GitHub\training\Project1\backend>://tests.test_reimbursement_dao' name='test_reimbursement_dao' nodeId='11' parentNodeId='1']
+##teamcity[testStarted timestamp='2021-06-21T09:47:03.344' captureStandardOutput='false' locationHint='python<C:\Users\bosto\Documents\GitHub\training\Project1\backend>://tests.test_reimbursement_dao.test_create_reimbursement' metainfo='test_create_reimbursement' name='test_create_reimbursement' nodeId='12' parentNodeId='11']
+PASSED        [ 58%]##teamcity[testFinished timestamp='2021-06-21T09:47:03.345' duration='0' locationHint='python<C:\Users\bosto\Documents\GitHub\training\Project1\backend>://tests.test_reimbursement_dao.test_create_reimbursement' name='test_create_reimbursement' nodeId='12' parentNodeId='11']
+
+tests/test_reimbursement_dao.py::test_get_reimbursement_by_id ##teamcity[testStarted timestamp='2021-06-21T09:47:03.349' captureStandardOutput='false' locationHint='python<C:\Users\bosto\Documents\GitHub\training\Project1\backend>://tests.test_reimbursement_dao.test_get_reimbursement_by_id' metainfo='test_get_reimbursement_by_id' name='test_get_reimbursement_by_id' nodeId='13' parentNodeId='11']
+PASSED     [ 66%]##teamcity[testFinished timestamp='2021-06-21T09:47:03.410' duration='59' locationHint='python<C:\Users\bosto\Documents\GitHub\training\Project1\backend>://tests.test_reimbursement_dao.test_get_reimbursement_by_id' name='test_get_reimbursement_by_id' nodeId='13' parentNodeId='11']
+
+tests/test_reimbursement_dao.py::test_get_reimbursements_by_employee ##teamcity[testStarted timestamp='2021-06-21T09:47:03.411' captureStandardOutput='false' locationHint='python<C:\Users\bosto\Documents\GitHub\training\Project1\backend>://tests.test_reimbursement_dao.test_get_reimbursements_by_employee' metainfo='test_get_reimbursements_by_employee' name='test_get_reimbursements_by_employee' nodeId='14' parentNodeId='11']
+PASSED [ 75%]##teamcity[testFinished timestamp='2021-06-21T09:47:03.472' duration='59' locationHint='python<C:\Users\bosto\Documents\GitHub\training\Project1\backend>://tests.test_reimbursement_dao.test_get_reimbursements_by_employee' name='test_get_reimbursements_by_employee' nodeId='14' parentNodeId='11']
+
+tests/test_reimbursement_dao.py::test_get_all_reimbursements ##teamcity[testStarted timestamp='2021-06-21T09:47:03.473' captureStandardOutput='false' locationHint='python<C:\Users\bosto\Documents\GitHub\training\Project1\backend>://tests.test_reimbursement_dao.test_get_all_reimbursements' metainfo='test_get_all_reimbursements' name='test_get_all_reimbursements' nodeId='15' parentNodeId='11']
+PASSED      [ 83%]##teamcity[testFinished timestamp='2021-06-21T09:47:03.534' duration='59' locationHint='python<C:\Users\bosto\Documents\GitHub\training\Project1\backend>://tests.test_reimbursement_dao.test_get_all_reimbursements' name='test_get_all_reimbursements' nodeId='15' parentNodeId='11']
+
+tests/test_reimbursement_dao.py::test_approve_reimbursement ##teamcity[testStarted timestamp='2021-06-21T09:47:03.536' captureStandardOutput='false' locationHint='python<C:\Users\bosto\Documents\GitHub\training\Project1\backend>://tests.test_reimbursement_dao.test_approve_reimbursement' metainfo='test_approve_reimbursement' name='test_approve_reimbursement' nodeId='16' parentNodeId='11']
+PASSED       [ 91%]##teamcity[testFinished timestamp='2021-06-21T09:47:03.662' duration='125' locationHint='python<C:\Users\bosto\Documents\GitHub\training\Project1\backend>://tests.test_reimbursement_dao.test_approve_reimbursement' name='test_approve_reimbursement' nodeId='16' parentNodeId='11']
+
+tests/test_reimbursement_dao.py::test_deny_reimbursement ##teamcity[testStarted timestamp='2021-06-21T09:47:03.664' captureStandardOutput='false' locationHint='python<C:\Users\bosto\Documents\GitHub\training\Project1\backend>://tests.test_reimbursement_dao.test_deny_reimbursement' metainfo='test_deny_reimbursement' name='test_deny_reimbursement' nodeId='17' parentNodeId='11']
+PASSED          [100%]##teamcity[testFinished timestamp='2021-06-21T09:47:03.845' duration='180' locationHint='python<C:\Users\bosto\Documents\GitHub\training\Project1\backend>://tests.test_reimbursement_dao.test_deny_reimbursement' name='test_deny_reimbursement' nodeId='17' parentNodeId='11']
+
+
+============================= 12 passed in 5.17s ==============================
